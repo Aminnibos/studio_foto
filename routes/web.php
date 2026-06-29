@@ -100,3 +100,12 @@ Route::get('/cek-error', function() {
     $lines = file($logFile);
     return '<pre style="background:#111; color:#0f0; padding:20px; white-space:pre-wrap;">' . implode("", array_slice($lines, -200)) . '</pre>';
 });
+
+Route::get('/buat-kolom', function() {
+    try {
+        \Illuminate\Support\Facades\DB::statement("ALTER TABLE users ADD COLUMN foto_profil VARCHAR(255) NULL");
+        return 'SUKSES! Kolom foto_profil berhasil ditambahkan ke database.';
+    } catch (\Exception $e) {
+        return 'GAGAL atau SUDAH ADA: ' . $e->getMessage();
+    }
+});
