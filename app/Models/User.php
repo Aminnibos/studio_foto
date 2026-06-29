@@ -25,6 +25,7 @@ class User extends Authenticatable
         'role',
         'no_hp', // PERBAIKAN: Ditambahkan agar nomor HP diizinkan masuk ke database
         'google_id',
+        'foto_profil',
     ];
 
     /**

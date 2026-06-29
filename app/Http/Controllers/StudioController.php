@@ -151,4 +151,52 @@ class StudioController extends Controller
 
         return back()->with('success', 'Pesanan Anda berhasil dibatalkan dan dihapus secara permanen.');
     }
+
+    public function profil()
+    {
+        return view('user.profil');
+    }
+
+    public function updateProfil(Request $request)
+    {
+        $user = auth()->user();
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'no_hp' => 'nullable|string|max:20',
+            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'no_hp' => $request->no_hp,
+        ];
+
+        if ($request->hasFile('foto_profil')) {
+            // Delete old photo if exists
+            if ($user->foto_profil && Storage::disk('public')->exists($user->foto_profil)) {
+                Storage::disk('public')->delete($user->foto_profil);
+            }
+
+            $path = $request->file('foto_profil')->store('profil', 'public');
+            $data['foto_profil'] = $path;
+        }
+
+        $user->update($data);
+
+        return back()->with('success', 'Profil berhasil diperbarui!');
+    }
+
+    public function hapusFotoProfil()
+    {
+        $user = auth()->user();
+
+        if ($user->foto_profil && Storage::disk('public')->exists($user->foto_profil)) {
+            Storage::disk('public')->delete($user->foto_profil);
+            $user->update(['foto_profil' => null]);
+            return back()->with('success', 'Foto profil berhasil dihapus.');
+        }
+
+        return back()->withErrors(['error' => 'Foto profil tidak ditemukan.']);
+    }
 }

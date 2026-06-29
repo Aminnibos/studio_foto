@@ -1,64 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mengelola Paket - Admin</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-gray-50 font-sans pb-16">
-
-    <div class="w-full bg-[#C1BA8A] p-4 flex justify-between items-center px-8 shadow-xs relative z-50">
-        <div class="flex items-center space-x-2 text-white font-bold text-xl">
-            <i class="fa-solid fa-camera-retro"></i>
-            <span>graphic.photostudio</span>
-        </div>
-        <div class="flex items-center space-x-8 text-white/90 font-medium text-sm">
-            <a href="/admin/dashboard" class="hover:text-white transition">Dasboard</a>
-            <a href="/admin/paket" class="text-white border-b-2 border-white pb-1 font-bold">Mengelola paket</a>
-            <a href="/admin/verifikasi-pembayaran" class="hover:text-white transition">Verifikasi pembayaran</a>
-            <a href="/admin/laporan" class="hover:text-white transition">Laporan</a>
-            
-            <div class="relative inline-block text-left ml-2">
-                <button onclick="toggleProfileMenu()" class="w-8 h-8 rounded-full bg-white hover:bg-gray-100 text-[#C1BA8A] flex items-center justify-center transition-all duration-300 shadow-sm cursor-pointer focus:outline-none ring-2 ring-white/50">
-                    <i class="fa-solid fa-user-tie text-sm"></i>
-                </button>
-
-                <div id="dropdownProfil" class="hidden absolute right-0 mt-3 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden transform origin-top-right transition-all text-gray-800 z-50">
-                    
-                    <div class="p-5 bg-gray-50/50 border-b border-gray-100">
-                        <div class="flex items-center space-x-3 mb-2">
-                            <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xl shadow-inner">
-                                <i class="fa-solid fa-user-shield"></i>
-                            </div>
-                            <div class="overflow-hidden">
-                                <p class="text-sm font-black text-gray-800 truncate">{{ auth()->user()->name ?? 'Administrator' }}</p>
-                                <p class="text-[10px] font-medium text-gray-400 truncate">{{ auth()->user()->email ?? 'admin@studio.com' }}</p>
-                            </div>
-                        </div>
-                        <span class="inline-block mt-1 px-2.5 py-1 bg-purple-50 text-purple-600 border border-purple-200 rounded text-[9px] font-bold uppercase tracking-wider">
-                            <i class="fa-solid fa-crown mr-1"></i> Admin Studio
-                        </span>
-                    </div>
-
-                    <div class="p-2">
-                        <form action="{{ url('/logout') }}" method="POST" class="w-full">
-                            @csrf
-                            <button type="submit" onclick="return confirm('Apakah Admin yakin ingin keluar dari sistem?')" class="w-full text-left px-4 py-2.5 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-xl transition flex items-center gap-3 cursor-pointer group">
-                                <i class="fa-solid fa-right-from-bracket group-hover:-translate-x-1 transition-transform"></i> 
-                                Keluar (Logout)
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-            </div>
-    </div>
-
-    <div class="p-8 max-w-[1400px] mx-auto space-y-6 relative z-10">
-        <div class="flex justify-between items-center">
+@extends('layouts.admin')
+@section('title', 'Mengelola Paket - Admin')
+@section('content')
+    <div class="p-4 md:p-8 max-w-[1400px] mx-auto space-y-6 relative z-10">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
             <div>
                 <h1 class="text-2xl font-bold text-gray-800 flex items-center space-x-2">
                     <span class="w-7 h-7 bg-amber-100 rounded-lg text-[#A69E65] flex items-center justify-center text-sm"><i class="fa-solid fa-box"></i></span>
@@ -67,15 +11,15 @@
                 <p class="text-xs text-gray-400 mt-1">Atur katalog visual penawaran dan paket studio foto Anda</p>
             </div>
             
-            <div class="flex items-center space-x-3">
-                <button onclick="openGaleriModal()" class="bg-white text-blue-500 border border-blue-200 px-4 py-2 rounded-lg shadow-sm hover:bg-blue-50 transition flex items-center space-x-2 font-medium text-sm cursor-pointer">
+            <div class="flex flex-wrap items-center gap-2 md:gap-3">
+                <button onclick="openGaleriModal()" class="bg-white text-blue-500 border border-blue-200 px-4 py-2 rounded-lg shadow-sm hover:bg-blue-50 transition flex items-center space-x-2 font-medium text-sm cursor-pointer w-full md:w-auto justify-center md:justify-start">
                     <i class="fa-regular fa-images"></i> <span>Tambah Foto Galeri</span>
                 </button>
 
-                <button onclick="openLatarModal()" class="bg-white text-[#C1BA8A] border border-[#C1BA8A] px-4 py-2 rounded-lg shadow-sm hover:bg-gray-50 transition flex items-center space-x-2 font-medium text-sm cursor-pointer">
+                <button onclick="openLatarModal()" class="bg-white text-[#C1BA8A] border border-[#C1BA8A] px-4 py-2 rounded-lg shadow-sm hover:bg-gray-50 transition flex items-center space-x-2 font-medium text-sm cursor-pointer w-full md:w-auto justify-center md:justify-start">
                     <i class="fa-solid fa-images"></i> <span>Tambah Latar Belakang</span>
                 </button>
-                <button onclick="openAddModal()" class="bg-[#C1BA8A] text-white px-4 py-2 rounded-lg shadow hover:bg-[#A69E65] transition flex items-center space-x-2 font-medium text-sm cursor-pointer">
+                <button onclick="openAddModal()" class="bg-[#C1BA8A] text-white px-4 py-2 rounded-lg shadow hover:bg-[#A69E65] transition flex items-center space-x-2 font-medium text-sm cursor-pointer w-full md:w-auto justify-center md:justify-start">
                     <i class="fa-solid fa-plus"></i> <span>Tambah Paket</span>
                 </button>
             </div>
@@ -431,23 +375,10 @@
             </form>
         </div>
     </div>
+@endsection
 
+@push('scripts')
     <script>
-        // SCRIPT PROFIL DROPDOWN ADMIN
-        function toggleProfileMenu() {
-            const dropdown = document.getElementById('dropdownProfil');
-            dropdown.classList.toggle('hidden');
-        }
-
-        window.addEventListener('click', function(e) {
-            const button = document.querySelector('button[onclick="toggleProfileMenu()"]');
-            const dropdown = document.getElementById('dropdownProfil');
-            
-            if (button && dropdown && !button.contains(e.target) && !dropdown.contains(e.target)) {
-                dropdown.classList.add('hidden');
-            }
-        });
-
         // JS PAKET
         const modal = document.getElementById('modalPaket');
         const form = document.getElementById('formPaket');
@@ -535,5 +466,4 @@
             document.getElementById('inputKategoriGaleri').value = "";
         }
     </script>
-</body>
-</html>
+@endpush

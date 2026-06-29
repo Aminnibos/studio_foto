@@ -70,15 +70,22 @@
             <!-- Profil Mobile -->
             <div class="relative inline-block text-left md:hidden">
                 @auth
-                <button onclick="toggleProfileMenuMobile(event)" class="w-9 h-9 rounded-full bg-gray-50 border border-gray-200 text-gray-600 hover:text-studio-500 hover:border-studio-200 flex items-center justify-center transition-all duration-300 shadow-sm focus:outline-none">
-                    <i class="fa-solid fa-user text-sm"></i>
+                <button onclick="toggleProfileMenuMobile(event)" class="w-9 h-9 rounded-full bg-gray-50 border border-gray-200 text-gray-600 hover:text-studio-500 hover:border-studio-200 flex items-center justify-center transition-all duration-300 shadow-sm focus:outline-none overflow-hidden">
+                    @if(auth()->user()->foto_profil)
+                        <img src="{{ asset('storage/' . auth()->user()->foto_profil) }}" alt="Profil" class="w-full h-full object-cover">
+                    @else
+                        <i class="fa-solid fa-user text-sm"></i>
+                    @endif
                 </button>
                 <div id="dropdownProfilMobile" class="hidden absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden transform origin-top-right transition-all z-50">
                     <div class="p-4 bg-gray-50/50 border-b border-gray-100">
                         <p class="text-sm font-black font-heading text-gray-800 truncate">{{ auth()->user()->name }}</p>
                         <p class="text-[10px] font-medium text-gray-400 truncate">{{ auth()->user()->email }}</p>
                     </div>
-                    <div class="p-2">
+                    <div class="p-2 space-y-1">
+                        <a href="/profil" class="w-full text-left px-4 py-2.5 text-xs font-bold text-gray-600 hover:bg-gray-50 hover:text-studio-500 rounded-xl transition flex items-center gap-3">
+                            <i class="fa-regular fa-id-badge"></i> Profil Saya
+                        </a>
                         <form action="{{ url('/logout') }}" method="POST" class="w-full">
                             @csrf
                             <button type="submit" onclick="return confirm('Apakah Anda yakin ingin keluar dari akun?')" class="w-full text-left px-4 py-2.5 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-xl transition flex items-center gap-3">
@@ -106,16 +113,24 @@
             <div class="relative hidden md:inline-block text-left pl-4 border-l border-gray-200">
                 @auth
                 <button onclick="toggleProfileMenuDesktop(event)" class="flex items-center space-x-2 text-gray-700 hover:text-studio-500 transition-colors focus:outline-none group">
-                    <div class="w-9 h-9 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center group-hover:border-studio-300 transition-colors shadow-sm">
-                        <i class="fa-solid fa-user text-sm"></i>
+                    <div class="w-9 h-9 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center group-hover:border-studio-300 transition-colors shadow-sm overflow-hidden">
+                        @if(auth()->user()->foto_profil)
+                            <img src="{{ asset('storage/' . auth()->user()->foto_profil) }}" alt="Profil" class="w-full h-full object-cover">
+                        @else
+                            <i class="fa-solid fa-user text-sm"></i>
+                        @endif
                     </div>
                     <i class="fa-solid fa-chevron-down text-[10px] text-gray-400 group-hover:text-studio-500 transition-colors"></i>
                 </button>
                 <div id="dropdownProfilDesktop" class="hidden absolute right-0 mt-4 w-64 bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] border border-gray-100 overflow-hidden transform origin-top-right transition-all z-50">
                     <div class="p-5 bg-gradient-to-b from-gray-50 to-white border-b border-gray-100">
                         <div class="flex items-center space-x-3 mb-2">
-                            <div class="w-10 h-10 rounded-full bg-studio-50 text-studio-500 flex items-center justify-center text-xl shadow-inner border border-studio-100">
-                                <i class="fa-solid fa-circle-user"></i>
+                            <div class="w-10 h-10 rounded-full bg-studio-50 text-studio-500 flex items-center justify-center text-xl shadow-inner border border-studio-100 overflow-hidden">
+                                @if(auth()->user()->foto_profil)
+                                    <img src="{{ asset('storage/' . auth()->user()->foto_profil) }}" alt="Profil" class="w-full h-full object-cover">
+                                @else
+                                    <i class="fa-solid fa-circle-user"></i>
+                                @endif
                             </div>
                             <div class="overflow-hidden">
                                 <p class="text-sm font-black font-heading text-gray-800 truncate">{{ auth()->user()->name }}</p>
@@ -126,7 +141,10 @@
                             Pelanggan Studio
                         </span>
                     </div>
-                    <div class="p-2">
+                    <div class="p-2 space-y-1">
+                        <a href="/profil" class="w-full text-left px-4 py-2.5 text-xs font-bold text-gray-600 hover:bg-gray-50 hover:text-studio-500 rounded-xl transition flex items-center gap-3">
+                            <i class="fa-regular fa-id-badge"></i> Profil Saya
+                        </a>
                         <form action="{{ url('/logout') }}" method="POST" class="w-full">
                             @csrf
                             <button type="submit" onclick="return confirm('Apakah Anda yakin ingin keluar dari akun?')" class="w-full text-left px-4 py-2.5 text-xs font-bold text-rose-600 hover:bg-rose-50 hover:text-rose-700 rounded-xl transition flex items-center gap-3">

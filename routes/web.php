@@ -53,6 +53,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/riwayat-pemesanan/upload/{id}', [StudioController::class, 'uploadBukti']); 
     Route::delete('/riwayat-pemesanan/hapus/{id}', [StudioController::class, 'hapusPemesanan']);
     Route::get('/profil', [StudioController::class, 'profil']);
+    Route::post('/profil/update', [StudioController::class, 'updateProfil']);
+    Route::delete('/profil/hapus-foto', [StudioController::class, 'hapusFotoProfil']);
 });
 
 /*

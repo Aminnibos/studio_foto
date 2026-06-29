@@ -81,6 +81,11 @@
                 <div class="flex-grow border-t border-gray-200"></div>
             </div>
 
+            <a href="{{ route('google.login') }}" class="w-full py-2.5 bg-white border border-gray-200 text-gray-700 font-bold rounded-lg transition shadow-sm hover:shadow-md hover:bg-gray-50 flex items-center justify-center gap-3 cursor-pointer text-xs mb-3">
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-4 h-4">
+                <span>Daftar dengan Google</span>
+            </a>
+
             <a href="/login" class="w-full py-2.5 bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 font-bold rounded-lg shadow-2xs transition flex items-center justify-center space-x-2 cursor-pointer text-xs no-underline">
                 <i class="fa-regular fa-user"></i> <span>Sudah punya akun? <span class="text-[#B5A46D]">Login di sini</span></span>
             </a>
