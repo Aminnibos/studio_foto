@@ -91,8 +91,3 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/galeri', [AdminController::class, 'storeGaleri']);
     Route::delete('/galeri/{id}', [AdminController::class, 'destroyGaleri']);
 });
-
-Route::get('/jalankan-migrasi', function() {
-    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-    return 'Database berhasil diperbarui!';
-});
