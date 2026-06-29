@@ -91,3 +91,13 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/galeri', [AdminController::class, 'storeGaleri']);
     Route::delete('/galeri/{id}', [AdminController::class, 'destroyGaleri']);
 });
+
+Route::get('/jalankan-paksa', function() {
+    if (!\Illuminate\Support\Facades\Schema::hasColumn('users', 'foto_profil')) {
+        \Illuminate\Support\Facades\Schema::table('users', function ($table) {
+            $table->string('foto_profil')->nullable();
+        });
+        return 'Kolom foto_profil berhasil DITAMBAHKAN SECARA PAKSA!';
+    }
+    return 'Kolom foto_profil SUDAH ADA. Masalahnya bukan di database.';
+});
