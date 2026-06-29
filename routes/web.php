@@ -91,3 +91,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/galeri', [AdminController::class, 'storeGaleri']);
     Route::delete('/galeri/{id}', [AdminController::class, 'destroyGaleri']);
 });
+
+Route::get('/cek-error', function() {
+    $logFile = storage_path('logs/laravel.log');
+    if (!file_exists($logFile)) {
+        return "Log file tidak ditemukan.";
+    }
+    $lines = file($logFile);
+    return '<pre style="background:#111; color:#0f0; padding:20px; white-space:pre-wrap;">' . implode("", array_slice($lines, -50)) . '</pre>';
+});
