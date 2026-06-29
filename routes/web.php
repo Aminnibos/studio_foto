@@ -98,5 +98,5 @@ Route::get('/cek-error', function() {
         return "Log file tidak ditemukan.";
     }
     $lines = file($logFile);
-    return '<pre style="background:#111; color:#0f0; padding:20px; white-space:pre-wrap;">' . implode("", array_slice($lines, -50)) . '</pre>';
+    return '<pre style="background:#111; color:#0f0; padding:20px; white-space:pre-wrap;">' . implode("", array_slice($lines, -200)) . '</pre>';
 });
