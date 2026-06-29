@@ -169,7 +169,7 @@ class StudioController extends Controller
 
         $data = [
             'name' => $request->name,
-            'no_hp' => $request->no_hp,
+            'no_hp' => $request->no_hp ?? '',
         ];
 
         if ($request->hasFile('foto_profil')) {
